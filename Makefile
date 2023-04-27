@@ -4,8 +4,6 @@ lint:
 	npx eslint .
 lintfix:
 	npx eslint --fix .
-install:
-	install-deps
 install-deps:
 	npm ci
 test:
