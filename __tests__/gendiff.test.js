@@ -1,4 +1,4 @@
-import gendiff from '../src/index';
+import gendiff from '../src/index.js';
 
 test('проверка на нахождение разности в файлах с разными расширениями', () => {
   const expected = '-follow: false\nhost: hexlet.io\n-proxy: 123.234.53.22\n+pages: 224\n-timeout: 50\n+timeout: 20\n+verbose: true';

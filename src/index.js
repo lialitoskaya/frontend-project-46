@@ -1,17 +1,17 @@
 /* eslint-disable consistent-return */
 /* eslint-disable import/no-cycle */
 
-import fs from "fs";
-import path from "path";
-import _ from "lodash";
-import { cwd } from "process";
-import parser from "./parser.js";
+import fs from 'fs';
+import path from 'path';
+import _ from 'lodash';
+import { cwd } from 'process';
+import parser from './parser.js';
 
 const makeAbsolutePath = (filepath) => path.resolve(cwd(), filepath);
 
 const extension = (filepath) => path.extname(filepath);
 
-const readFile = (file) => fs.readFileSync(file, "utf8");
+const readFile = (file) => fs.readFileSync(file, 'utf8');
 
 const gendiff = (filepath1, filepath2) => {
   const path1 = makeAbsolutePath(filepath1);
@@ -23,19 +23,19 @@ const gendiff = (filepath1, filepath2) => {
   const diffData = (data) => {
     // eslint-disable-next-line default-case
     switch (data.status) {
-      case "unchanged":
+      case 'unchanged':
         return `${data.key}: ${data.value}`;
-      case "changed":
+      case 'changed':
         return [
           `-${data.key}: ${data.oldValue}`,
           `+${data.key}: ${data.newValue}`,
         ];
-      case "deleted":
+      case 'deleted':
         return `-${data.key}: ${data.value}`;
-      case "added":
+      case 'added':
         return `+${data.key}: ${data.value}`;
     }
-    if (typeof data.value === "object") {
+    if (typeof data.value === 'object') {
       const children = data.value;
       children.map(diffData);
     }
@@ -47,28 +47,28 @@ const gendiff = (filepath1, filepath2) => {
   const keyData = _.union(entries1, entries).map((key) => {
     if (_.has(obj1, key) && _.has(obj2, key)) {
       return obj1[key] === obj2[key]
-        ? { key, value: obj1[key], status: "unchanged" }
+        ? { key, value: obj1[key], status: 'unchanged' }
         : {
-            key,
-            oldValue: obj1[key],
-            newValue: obj2[key],
-            status: "changed",
-          };
+          key,
+          oldValue: obj1[key],
+          newValue: obj2[key],
+          status: 'changed',
+        };
     }
     return _.has(obj1, key)
-      ? { key, value: obj1[key], status: "deleted" }
-      : { key, value: obj2[key], status: "added" };
+      ? { key, value: obj1[key], status: 'deleted' }
+      : { key, value: obj2[key], status: 'added' };
   });
 
   return keyData
     .flatMap(diffData)
     .sort((a, b) => {
       const regExp = /\+|-| /g;
-      const newA = a.replace(regExp, "")[0];
-      const newB = b.replace(regExp, "")[0];
+      const newA = a.replace(regExp, '')[0];
+      const newB = b.replace(regExp, '')[0];
       return newA >= newB ? 1 : -1;
     })
-    .join("\n");
+    .join('\n');
 };
 
 export { readFile, extension };
