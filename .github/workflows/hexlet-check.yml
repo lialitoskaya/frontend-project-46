@@ -20,7 +20,7 @@ jobs:
       # Node versions list
       matrix:
         node-version: [14.x]
-        
+
     steps:
       # Check-out repository under GitHub workspace
       # https://github.com/actions/checkout
@@ -37,12 +37,12 @@ jobs:
       - run: make install-deps
       - run: make lint
       - run: make test
-      - name: Test & publish code coverage
+      - name:
+          Test & publish code coverage
           # Publish code coverage on Code Climate
           # https://github.com/paambaati/codeclimate-action
-          uses: paambaati/codeclimate-action@v3.0.0
-          env:
-            CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-          with:
-            coverageCommand: make test-coverage
-
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageCommand: make test-coverage
