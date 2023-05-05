@@ -28,15 +28,15 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-      # - run: make install-deps
-      # - run: make lint
-      # - run: make test
+      - run: make install-deps
+      - run: make lint
+      - run: make test
       - name: Test & publish code coverage
           # Publish code coverage on Code Climate
           # https://github.com/paambaati/codeclimate-action
           uses: paambaati/codeclimate-action@v3.0.0
           env:
-            CC_TEST_REPORTER_ID: 9f15dc1273bd0e55cb38955717be4dbf56aef0fd8980aadf198ed18f401c95d8
+            CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
           with:
             coverageCommand: make test-coverage
-            debug: true
+
