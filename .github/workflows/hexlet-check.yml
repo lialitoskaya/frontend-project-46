@@ -6,15 +6,21 @@
 name: hexlet-check
 
 on:
-  push:
-    branches:
-      - "**"
-    tags:
-      - "**"
+  - push
+  - pull_request
+
+env:
+  CI: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    strategy:
+      # Node versions list
+      matrix:
+        node-version: [14.x]
+        
     steps:
       # Check-out repository under GitHub workspace
       # https://github.com/actions/checkout
