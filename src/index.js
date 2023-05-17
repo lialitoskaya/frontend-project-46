@@ -1,74 +1,42 @@
-/* eslint-disable consistent-return */
-/* eslint-disable import/no-cycle */
-
 import fs from 'fs';
-import path from 'path';
+
 import _ from 'lodash';
-import { cwd } from 'process';
-import parser from './parser.js';
-
-const makeAbsolutePath = (filepath) => path.resolve(cwd(), filepath);
-
-const extension = (filepath) => path.extname(filepath);
 
 const readFile = (file) => fs.readFileSync(file, 'utf8');
+const getKeys = (file1, file2) => {
+  const entries1 = Object.keys(file1);
+  const entries = Object.keys(file2);
+  const unionKeys = _.union(entries1, entries);
+  return unionKeys;
+};
 
-const keyDiffData = (filepath1, filepath2) => {
-  const path1 = makeAbsolutePath(filepath1);
-  const path2 = makeAbsolutePath(filepath2);
-  const obj1 = parser(path1);
-  const obj2 = parser(path2);
-  const entries1 = Object.keys(obj1);
-  const entries = Object.keys(obj2);
-
-  const sortedData = _.union(entries1, entries)
+const keyDiffData = (f1, f2) => {
+  const keys = getKeys(f1, f2);
+  return keys
     .map((key) => {
-      if (_.has(obj1, key) && _.has(obj2, key)) {
-        return obj1[key] === obj2[key]
-          ? { key, value: obj1[key], status: 'unchanged' }
-          : {
-            key,
-            oldValue: obj1[key],
-            newValue: obj2[key],
-            status: 'changed',
-          };
+      if (_.has(f1, key) && !_.has(f2, key)) {
+        return { key, value: f1[key], status: 'deleted' };
       }
-      return _.has(obj1, key)
-        ? { key, value: obj1[key], status: 'deleted' }
-        : { key, value: obj2[key], status: 'added' };
+      if (_.has(f2, key) && !_.has(f1, key)) {
+        return { key, value: f2[key], status: 'added' };
+      }
+      if (_.isObject(f1[key]) && _.isObject(f2[key])) {
+        return {
+          key,
+          children: keyDiffData(f1[key], f2[key]),
+          status: 'nested',
+        };
+      }
+      return f1[key] === f2[key]
+        ? { key, value: f1[key], status: 'unchanged' }
+        : {
+          key,
+          oldValue: f1[key],
+          newValue: f2[key],
+          status: 'changed',
+        };
     })
     .sort((a, b) => (a.key > b.key ? 1 : -1));
-
-  return sortedData;
 };
 
-const gendiff = (filepath1, filepath2) => {
-  const diffData = (data) => {
-    // eslint-disable-next-line default-case
-    switch (data.status) {
-      case 'unchanged':
-        return `${data.key}: ${data.value}`;
-      case 'changed':
-        return [
-          `-${data.key}: ${data.oldValue}`,
-          `+${data.key}: ${data.newValue}`,
-        ];
-      case 'deleted':
-        return `-${data.key}: ${data.value}`;
-      case 'added':
-        return `+${data.key}: ${data.value}`;
-    }
-    if (typeof data.value === 'object') {
-      const children = data.value;
-      children.map(diffData);
-    }
-  };
-
-  const sortedKeyDiffs = keyDiffData(filepath1, filepath2)
-    .flatMap(diffData)
-    .join('\n');
-  return sortedKeyDiffs;
-};
-
-export { readFile, extension };
-export default gendiff;
+export { readFile, keyDiffData };

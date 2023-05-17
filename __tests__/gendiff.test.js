@@ -7,22 +7,55 @@ const __dirname = dirname(__filename);
 
 const absolutePath = (filename) => join(__dirname, '..', filename);
 
-test('проверка на нахождение разности в файлах с разными расширениями', () => {
-  const expected = '-follow: false\nhost: hexlet.io\n+pages: 224\n-proxy: 123.234.53.22\n-timeout: 50\n+timeout: 20\n+verbose: true';
+test('проверка на нахождение изменений в файлах со вложенной структурой', () => {
+  const expected = `{
+    common: {
+      + follow: false
+        setting1: Value 1
+      - setting2: 200
+      - setting3: true
+      + setting3: null
+      + setting4: blah blah
+      + setting5: {
+            key5: value5
+        }
+        setting6: {
+            doge: {
+              - wow: 
+              + wow: so much
+            }
+            key: value
+          + ops: vops
+        }
+    }
+    group1: {
+      - baz: bas
+      + baz: bars
+        foo: bar
+      - nest: {
+            key: value
+        }
+      + nest: str
+    }
+  - group2: {
+        abc: 12345
+        deep: {
+            id: 45
+        }
+    }
+  + group3: {
+        deep: {
+            id: {
+                number: 45
+            }
+        }
+        fee: 100500
+    }
+}`;
   expect(
     gendiff(
-      absolutePath('__tests__/test.file.json'),
-      absolutePath('__tests__/test.file.yml'),
-    ),
-  ).toEqual(expect.stringContaining(expected));
-});
-
-test('проверка на нахождение разности в файлах с разными путями', () => {
-  const expected = '-follow: false\nhost: hexlet.io\n-proxy: 123.234.53.22\n-timeout: 50\n+timeout: 20\n+verbose: true';
-  expect(
-    gendiff(
-      absolutePath('__tests__/test.file.json'),
-      absolutePath('__fixtures__/file2.json'),
+      absolutePath('__fixtures__/newfile3.yaml'),
+      absolutePath('__fixtures__/newfile1.json'),
     ),
   ).toEqual(expect.stringContaining(expected));
 });
