@@ -1,8 +1,8 @@
 import path from 'path';
 import { cwd } from 'process';
-import stylish from './src/formatters/stylish.js';
-import plain from './src/formatters/plain.js';
-import parser from './src/parser.js';
+import stylish from './stylish.js';
+import plain from './plain.js';
+import parser from '../parser.js';
 
 const makeAbsolutePath = (filepath) => path.resolve(cwd(), filepath);
 
