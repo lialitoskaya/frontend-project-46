@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* eslint-disable no-console */
 import { Command } from 'commander';
-import gendiff from '../src/stylish.js';
+import gendiff from '../index.js';
 
 const program = new Command();
 program
@@ -15,6 +15,9 @@ program
     const options = program.opts();
     if (options.format === 'stylish' || options.format === undefined) {
       console.log(gendiff(filepath1, filepath2, 'stylish'));
+    }
+    if (options.format === 'plain') {
+      console.log(gendiff(filepath1, filepath2, 'plain'));
     }
   });
 program.parse();

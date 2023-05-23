@@ -1,9 +1,6 @@
-/* eslint-disable consistent-return */
-/* eslint-disable import/no-cycle */
-/* eslint-disable default-case */
 import yaml from 'js-yaml';
 import path from 'path';
-import { readFile } from './index.js';
+import { readFile } from '../buildDiff.js';
 
 const extension = (filepath) => path.extname(filepath);
 
@@ -15,6 +12,8 @@ const parser = (file) => {
       return yaml.load(readFile(file));
     case '.yaml':
       return yaml.load(readFile(file));
+    default:
+      throw new Error();
   }
 };
 

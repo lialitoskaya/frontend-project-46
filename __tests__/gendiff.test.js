@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import gendiff from '../src/stylish.js';
+import gendiff from '../index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -58,4 +58,25 @@ test('проверка на нахождение изменений в файл�
       absolutePath('__fixtures__/newfile1.json'),
     ),
   ).toEqual(expect.stringContaining(expected));
+});
+
+const expected = `Property 'common.follow' was added with value: false
+Property 'common.setting2' was removed
+Property 'common.setting3' was updated. From true to null
+Property 'common.setting4' was added with value: 'blah blah'
+Property 'common.setting5' was added with value: [complex value]
+Property 'common.setting6.doge.wow' was updated. From '' to 'so much'
+Property 'common.setting6.ops' was added with value: 'vops'
+Property 'group1.baz' was updated. From 'bas' to 'bars'
+Property 'group1.nest' was updated. From [complex value] to 'str'
+Property 'group2' was removed
+Property 'group3' was added with value: [complex value]`;
+test('проверка plain форматтера', () => {
+  expect(
+    gendiff(
+      absolutePath('__fixtures__/newfile3.yaml'),
+      absolutePath('__fixtures__/newfile1.json'),
+      'plain',
+    ),
+  ).toEqual(expected);
 });
