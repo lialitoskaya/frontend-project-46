@@ -14,8 +14,11 @@ const makeIndent = (node) => {
 };
 const convert = (tree) => {
   if (_.isObject(tree)) {
-    const newString1 = JSON.stringify(tree, null, 4).replaceAll('"', '');
-    return makeIndent(newString1).replaceAll(',', '').trim();
+    const newString1 = JSON.stringify(tree, null, 4);
+    return makeIndent(newString1)
+      .replaceAll(',', '')
+      .replaceAll('"', '')
+      .trim();
   }
   return `${tree}`;
 };
