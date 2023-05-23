@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { keyDiffData } from '../../buildDiff.js';
 
 const makeIndent = (node) => {
@@ -12,8 +13,11 @@ const makeIndent = (node) => {
     .join('\n');
 };
 const convert = (tree) => {
-  const newString = JSON.stringify(tree, null, 4).replaceAll('"', '');
-  return makeIndent(newString).replaceAll(',', '').trim();
+  if (_.isObject(tree)) {
+    const newString1 = JSON.stringify(tree, null, 4).replaceAll('"', '');
+    return makeIndent(newString1).replaceAll(',', '').trim();
+  }
+  return `${tree}`;
 };
 
 const stylish = (obj1, obj2) => {
