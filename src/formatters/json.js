@@ -1,4 +1,4 @@
-import { keyDiffData } from "../../buildDiff.js";
+import { keyDiffData } from '../../buildDiff.js';
 
 const jsonDiff = (file1, file2) => {
   const data = keyDiffData(file1, file2);
