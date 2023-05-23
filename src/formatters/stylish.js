@@ -15,11 +15,10 @@ const makeIndent = (node) => {
 const convert = (tree) => {
   if (_.isObject(tree)) {
     const newString1 = JSON.stringify(tree, null, 4);
-    const resultString = makeIndent(newString1)
+    return makeIndent(newString1)
       .replaceAll(',', '')
       .replaceAll('"', '')
       .trim();
-    return resultString;
   }
   return `${tree}`;
 };
