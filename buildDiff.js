@@ -10,7 +10,7 @@ const getKeys = (file1, file2) => {
   return unionKeys;
 };
 
-const keyDiffData = (f1, f2) => {
+const diffData = (f1, f2) => {
   const keys = getKeys(f1, f2);
   return keys
     .map((key) => {
@@ -23,7 +23,7 @@ const keyDiffData = (f1, f2) => {
       if (_.isObject(f1[key]) && _.isObject(f2[key])) {
         return {
           key,
-          children: keyDiffData(f1[key], f2[key]),
+          children: diffData(f1[key], f2[key]),
           status: 'nested',
         };
       }
@@ -39,4 +39,4 @@ const keyDiffData = (f1, f2) => {
     .sort((a, b) => (a.key > b.key ? 1 : -1));
 };
 
-export { readFile, keyDiffData };
+export { readFile, diffData };

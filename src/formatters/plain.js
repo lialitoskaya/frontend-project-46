@@ -1,4 +1,4 @@
-import { keyDiffData } from '../../buildDiff.js';
+import { diffData } from '../../buildDiff.js';
 
 const typeOfValue = (value) => {
   if (typeof value === 'object' && value !== null) {
@@ -6,8 +6,8 @@ const typeOfValue = (value) => {
   }
   return typeof value === 'string' ? `'${value}'` : value;
 };
-const plain = (obj1, obj2) => {
-  const newData = keyDiffData(obj1, obj2);
+const plainDiff = (obj1, obj2) => {
+  const newData = diffData(obj1, obj2);
   const resultdiff = (data, path) => data
     .filter((child) => child.status !== 'unchanged')
     .map((child) => {
@@ -33,4 +33,4 @@ const plain = (obj1, obj2) => {
 
   return resultdiff(newData, '');
 };
-export default plain;
+export default plainDiff;

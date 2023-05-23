@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { keyDiffData } from '../../buildDiff.js';
+import { diffData } from '../../buildDiff.js';
 
 const makeIndent = (node) => {
   const newNode = node.split('\n');
@@ -12,19 +12,19 @@ const makeIndent = (node) => {
     })
     .join('\n');
 };
-const convert = (tree) => {
-  if (_.isObject(tree)) {
-    const newString1 = JSON.stringify(tree, null, 4);
+const convert = (node) => {
+  if (_.isObject(node)) {
+    const newString1 = JSON.stringify(node, null, 4);
     return makeIndent(newString1)
       .replaceAll(',', '')
       .replaceAll('"', '')
       .trim();
   }
-  return `${tree}`;
+  return `${node}`;
 };
 
-const stylish = (obj1, obj2) => {
-  const newData = keyDiffData(obj1, obj2);
+const stylishDiff = (obj1, obj2) => {
+  const newData = diffData(obj1, obj2);
   const resultdiff = (data) => data
     .map((child) => {
       switch (child.status) {
@@ -51,4 +51,4 @@ const stylish = (obj1, obj2) => {
   return `{\n${resultdiff(newData)}\n}`;
 };
 
-export default stylish;
+export default stylishDiff;

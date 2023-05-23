@@ -1,7 +1,7 @@
-import { keyDiffData } from '../../buildDiff.js';
+import { diffData } from '../../buildDiff.js';
 
 const jsonDiff = (file1, file2) => {
-  const data = keyDiffData(file1, file2);
+  const data = diffData(file1, file2);
   return JSON.stringify(data);
 };
 
