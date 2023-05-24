@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/lialitoskaya/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/lialitoskaya/frontend-project-46/actions)",
-  "main": "src/index.js",
+  "main": "./src/formatters/index.js",
   "type": "module",
   "scripts": {
     "test": "npx jest"
