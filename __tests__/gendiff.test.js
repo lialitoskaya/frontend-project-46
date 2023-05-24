@@ -1,11 +1,11 @@
 import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import path, { dirname } from 'path';
 import gendiff from '../src/formatters/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const absolutePath = (filename) => join(__dirname, '..', filename);
+const absolutePath = (filename) => path.join(__dirname, '..', filename);
 
 const expected = `Property 'common.follow' was added with value: false
 Property 'common.setting2' was removed
