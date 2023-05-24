@@ -24,4 +24,3 @@ rules:
       },
     ]
   no-underscore-dangle: [2, { "allow": ["__filename", "__dirname"] }]
-  fp/no-mutating-methods: ["error", { "allowedObjects": ["_"] }]
