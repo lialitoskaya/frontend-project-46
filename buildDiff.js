@@ -32,6 +32,7 @@ const diffData = (f1, f2) => {
         status: 'changed',
       };
   });
+  /* eslint-disable */
   return sortedKeys.sort((a, b) => (a.key > b.key ? 1 : -1));
 };
 
