@@ -1,8 +1,5 @@
-import fs from 'fs';
-
 import _ from 'lodash';
 
-const readFile = (file) => fs.readFileSync(file, 'utf8');
 const getKeys = (file1, file2) => {
   const entries1 = Object.keys(file1);
   const entries = Object.keys(file2);
@@ -39,4 +36,4 @@ const diffData = (f1, f2) => {
     .sort((a, b) => (a.key > b.key ? 1 : -1));
 };
 
-export { readFile, diffData };
+export default diffData;

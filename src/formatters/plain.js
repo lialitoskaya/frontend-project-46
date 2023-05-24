@@ -1,4 +1,4 @@
-import { diffData } from '../../buildDiff.js';
+import diffData from '../../buildDiff.js';
 
 const typeOfValue = (value) => {
   if (typeof value === 'object' && value !== null) {

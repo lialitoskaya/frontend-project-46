@@ -1,15 +1,12 @@
-import path from 'path';
-import { cwd } from 'process';
+import { makeAbsolutePath } from '../../readFile.js';
 import stylishDiff from './stylish.js';
 import plainDiff from './plain.js';
-import parser from '../parser.js';
+import parse from '../parser.js';
 import jsonDiff from './json.js';
 
-const makeAbsolutePath = (filepath) => path.resolve(cwd(), filepath);
-
 const gendiff = (filepath1, filepath2, formatter) => {
-  const obj1 = parser(makeAbsolutePath(filepath1));
-  const obj2 = parser(makeAbsolutePath(filepath2));
+  const obj1 = parse(makeAbsolutePath(filepath1));
+  const obj2 = parse(makeAbsolutePath(filepath2));
   if (formatter === 'plain') {
     return plainDiff(obj1, obj2);
   }

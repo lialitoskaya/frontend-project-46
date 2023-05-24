@@ -1,10 +1,10 @@
 import yaml from 'js-yaml';
 import path from 'path';
-import { readFile } from '../buildDiff.js';
+import { readFile } from '../readFile.js';
 
 const extension = (filepath) => path.extname(filepath);
 
-const parser = (file) => {
+const parse = (file) => {
   switch (extension(file)) {
     case '.json':
       return JSON.parse(readFile(file));
@@ -17,4 +17,4 @@ const parser = (file) => {
   }
 };
 
-export default parser;
+export default parse;

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { diffData } from '../../buildDiff.js';
+import diffData from '../../buildDiff.js';
 
 const makeIndent = (node) => {
   const newNode = node.split('\n');
