@@ -34,6 +34,7 @@ const diffData = (f1, f2) => {
   });
   /* eslint-disable */
   return sortedKeys.sort((a, b) => (a.key > b.key ? 1 : -1));
+  /* eslint-enable */
 };
 
 export default diffData;
