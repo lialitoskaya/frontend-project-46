@@ -12,14 +12,11 @@ call example: gendiff -f json ../**fixtures**/newfile3.yaml ../**fixtures**/newf
 
 video with an example of using gendiff:
 
-reference Information
-https://asciinema.org/a/NFSKacK3DkLygCqFwqSTG9vXI
-
 usage example with default formatter
-https://asciinema.org/a/Hcv7o0EhZ7K5nvYFMfmnAyHL1
+[![asciicast](https://asciinema.org/a/6ZhFLOF1LU7UjiYaQ753tgENs.svg)](https://asciinema.org/a/6ZhFLOF1LU7UjiYaQ753tgENs)
 
 usage example with 'plain' formatter
-https://asciinema.org/a/aiKQVCCLqvPuWJInAUTOmxehp
+[![asciicast](https://asciinema.org/a/Xk1TDrpjdaIf38VducehfrHAY.svg)](https://asciinema.org/a/Xk1TDrpjdaIf38VducehfrHAY)
 
 usage example with 'json' formatter
-https://asciinema.org/a/CjEm34HkSmUZTUI6QffRxCX6g
+[![asciicast](https://asciinema.org/a/UDrSHEZj42RRukGgr4tOMbbSW.svg)](https://asciinema.org/a/UDrSHEZj42RRukGgr4tOMbbSW)
