@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* eslint-disable no-console */
 import { Command } from 'commander';
-import gendiff from '../src/formatters/index.js';
+import gendiff from '../src/index.js';
 
 const program = new Command();
 program
@@ -13,14 +13,6 @@ program
   .argument('<filepath2>')
   .action((filepath1, filepath2) => {
     const options = program.opts();
-    if (options.format === 'stylish' || options.format === undefined) {
-      console.log(gendiff(filepath1, filepath2, 'stylish'));
-    }
-    if (options.format === 'plain') {
-      console.log(gendiff(filepath1, filepath2, 'plain'));
-    }
-    if (options.format === 'json') {
-      console.log(gendiff(filepath1, filepath2, 'json'));
-    }
+    console.log(gendiff(filepath1, filepath2, options.format));
   });
 program.parse();

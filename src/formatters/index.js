@@ -1,18 +1,14 @@
-import { makeAbsolutePath } from '../../readFile.js';
+import jsonDiff from './json.js';
 import stylishDiff from './stylish.js';
 import plainDiff from './plain.js';
-import parse from '../parser.js';
-import jsonDiff from './json.js';
 
-const gendiff = (filepath1, filepath2, formatter) => {
-  const obj1 = parse(makeAbsolutePath(filepath1));
-  const obj2 = parse(makeAbsolutePath(filepath2));
+const diff = (data1, data2, formatter) => {
   if (formatter === 'plain') {
-    return plainDiff(obj1, obj2);
+    return plainDiff(data1, data2);
   }
   if (formatter === 'json') {
-    return jsonDiff(obj1, obj2);
+    return jsonDiff(data1, data2);
   }
-  return stylishDiff(obj1, obj2);
+  return stylishDiff(data1, data2);
 };
-export default gendiff;
+export default diff;

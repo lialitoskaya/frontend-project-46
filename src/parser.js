@@ -1,19 +1,15 @@
 import yaml from 'js-yaml';
-import path from 'path';
-import { readFile } from '../readFile.js';
 
-const extension = (filepath) => path.extname(filepath);
-
-const parse = (file) => {
-  switch (extension(file)) {
+const parse = (data, extname) => {
+  switch (extname) {
     case '.json':
-      return JSON.parse(readFile(file));
+      return JSON.parse(data);
     case '.yml':
-      return yaml.load(readFile(file));
+      return yaml.load(data);
     case '.yaml':
-      return yaml.load(readFile(file));
+      return yaml.load(data);
     default:
-      throw new Error();
+      throw new Error(`Extensions ${extname} - is incorrect!`);
   }
 };
 

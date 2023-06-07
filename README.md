@@ -10,7 +10,7 @@ takes two required arguments (the path to the first file to compare against and 
 
 call example: gendiff -f json ../**fixtures**/newfile3.yaml ../**fixtures**/newfile1.json
 
-video with an example of using gendiff:
+##Examples:
 
 usage example with default formatter
 [![asciicast](https://asciinema.org/a/6ZhFLOF1LU7UjiYaQ753tgENs.svg)](https://asciinema.org/a/6ZhFLOF1LU7UjiYaQ753tgENs)
