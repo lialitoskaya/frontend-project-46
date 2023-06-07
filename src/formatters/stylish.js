@@ -15,6 +15,7 @@ const makeIndent = (node) => {
 const convert = (node) => {
   if (_.isObject(node)) {
     const newString1 = JSON.stringify(node, null, 4);
+    console.log(makeIndent(newString1));
     return makeIndent(newString1)
       .replaceAll(',', '')
       .replaceAll('"', '')

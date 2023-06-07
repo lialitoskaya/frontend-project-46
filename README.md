@@ -8,9 +8,11 @@ program to find difference between two files with different extensions ('.json',
 works with absolute and relative paths to files
 takes two required arguments (the path to the first file to compare against and the path to the second file) and one optional formatter argument (-f options), default 'stylish'
 
-call example: gendiff -f json ../**fixtures**/newfile3.yaml ../**fixtures**/newfile1.json
+### call example:
 
-##Examples:
+'gendiff -f json ../**fixtures**/newfile3.yaml ../**fixtures**/newfile1.json'
+
+### video examples:
 
 usage example with default formatter
 [![asciicast](https://asciinema.org/a/6ZhFLOF1LU7UjiYaQ753tgENs.svg)](https://asciinema.org/a/6ZhFLOF1LU7UjiYaQ753tgENs)
