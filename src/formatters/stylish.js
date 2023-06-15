@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import diffData from '../../buildDiff.js';
 
 const makeIndent = (node) => {
   const newNode = node.split('\n');
@@ -23,8 +22,7 @@ const convert = (node) => {
   return `${node}`;
 };
 
-const stylishDiff = (obj1, obj2) => {
-  const newData = diffData(obj1, obj2);
+const stylishDiff = (obj) => {
   const resultdiff = (data) => data
     .map((child) => {
       switch (child.status) {
@@ -48,7 +46,7 @@ const stylishDiff = (obj1, obj2) => {
     })
     .join('\n');
 
-  return `{\n${resultdiff(newData)}\n}`;
+  return `{\n${resultdiff(obj)}\n}`;
 };
 
 export default stylishDiff;

@@ -1,13 +1,10 @@
-import diffData from '../../buildDiff.js';
-
 const typeOfValue = (value) => {
   if (typeof value === 'object' && value !== null) {
     return '[complex value]';
   }
   return typeof value === 'string' ? `'${value}'` : value;
 };
-const plainDiff = (obj1, obj2) => {
-  const newData = diffData(obj1, obj2);
+const plainDiff = (obj) => {
   const resultdiff = (data, path) => data
     .filter((child) => child.status !== 'unchanged')
     .map((child) => {
@@ -31,6 +28,6 @@ const plainDiff = (obj1, obj2) => {
     })
     .join('\n');
 
-  return resultdiff(newData, '');
+  return resultdiff(obj, '');
 };
 export default plainDiff;

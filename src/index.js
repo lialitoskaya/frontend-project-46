@@ -2,7 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import { cwd } from 'process';
 import parse from './parser.js';
-import diff from './formatters/index.js';
+import getFormatted from './formatters/index.js';
+import makeAstTree from './makeAstTree.js';
 
 const makeAbsolutePath = (filepath) => path.resolve(cwd(), filepath);
 
@@ -17,6 +18,6 @@ const gendiff = (filepath1, filepath2, formatter = 'stylish') => {
   const extname2 = extension(absolutePath2);
   const parseData1 = parse(data1, extname1);
   const parseData2 = parse(data2, extname2);
-  return diff(parseData1, parseData2, formatter);
+  return getFormatted(makeAstTree(parseData1, parseData2), formatter);
 };
 export default gendiff;

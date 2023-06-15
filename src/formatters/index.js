@@ -2,13 +2,13 @@ import jsonDiff from './json.js';
 import stylishDiff from './stylish.js';
 import plainDiff from './plain.js';
 
-const diff = (data1, data2, formatter) => {
+const getFormatted = (data, formatter) => {
   if (formatter === 'plain') {
-    return plainDiff(data1, data2);
+    return plainDiff(data);
   }
   if (formatter === 'json') {
-    return jsonDiff(data1, data2);
+    return jsonDiff(data);
   }
-  return stylishDiff(data1, data2);
+  return stylishDiff(data);
 };
-export default diff;
+export default getFormatted;

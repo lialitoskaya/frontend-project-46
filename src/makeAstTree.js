@@ -7,19 +7,19 @@ const getKeys = (file1, file2) => {
   return unionKeys;
 };
 
-const diffData = (f1, f2) => {
+const makeAstTree = (f1, f2) => {
   const keys = getKeys(f1, f2);
   const sortedKeys = keys.map((key) => {
-    if (_.has(f1, key) && !_.has(f2, key)) {
+    if (!_.has(f2, key)) {
       return { key, value: f1[key], status: 'deleted' };
     }
-    if (_.has(f2, key) && !_.has(f1, key)) {
+    if (!_.has(f1, key)) {
       return { key, value: f2[key], status: 'added' };
     }
     if (_.isObject(f1[key]) && _.isObject(f2[key])) {
       return {
         key,
-        children: diffData(f1[key], f2[key]),
+        children: makeAstTree(f1[key], f2[key]),
         status: 'nested',
       };
     }
@@ -37,4 +37,4 @@ const diffData = (f1, f2) => {
   /* eslint-enable */
 };
 
-export default diffData;
+export default makeAstTree;
