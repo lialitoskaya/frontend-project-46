@@ -1,34 +1,34 @@
 import _ from 'lodash';
 
-const getKeys = (file1, file2) => {
-  const entries1 = Object.keys(file1);
-  const entries = Object.keys(file2);
+const getKeys = (obj1, obj2) => {
+  const entries1 = Object.keys(obj1);
+  const entries = Object.keys(obj2);
   const unionKeys = _.union(entries1, entries);
   return unionKeys;
 };
 
-const makeAstTree = (f1, f2) => {
-  const keys = getKeys(f1, f2);
+const makeAstTree = (obj1, obj2) => {
+  const keys = getKeys(obj1, obj2);
   const sortedKeys = keys.map((key) => {
-    if (!_.has(f2, key)) {
-      return { key, value: f1[key], status: 'deleted' };
+    if (!_.has(obj2, key)) {
+      return { key, value: obj1[key], status: 'deleted' };
     }
-    if (!_.has(f1, key)) {
-      return { key, value: f2[key], status: 'added' };
+    if (!_.has(obj1, key)) {
+      return { key, value: obj2[key], status: 'added' };
     }
-    if (_.isObject(f1[key]) && _.isObject(f2[key])) {
+    if (_.isObject(obj1[key]) && _.isObject(obj2[key])) {
       return {
         key,
-        children: makeAstTree(f1[key], f2[key]),
+        children: makeAstTree(obj1[key], obj2[key]),
         status: 'nested',
       };
     }
-    return f1[key] === f2[key]
-      ? { key, value: f1[key], status: 'unchanged' }
+    return obj1[key] === obj2[key]
+      ? { key, value: obj1[key], status: 'unchanged' }
       : {
         key,
-        oldValue: f1[key],
-        newValue: f2[key],
+        oldValue: obj1[key],
+        newValue: obj2[key],
         status: 'changed',
       };
   });

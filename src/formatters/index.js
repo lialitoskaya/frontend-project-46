@@ -3,12 +3,13 @@ import stylishDiff from './stylish.js';
 import plainDiff from './plain.js';
 
 const getFormatted = (data, formatter) => {
-  if (formatter === 'plain') {
-    return plainDiff(data);
+  switch (formatter) {
+    case 'plain':
+      return plainDiff(data);
+    case 'json':
+      return jsonDiff(data);
+    default:
+      return stylishDiff(data);
   }
-  if (formatter === 'json') {
-    return jsonDiff(data);
-  }
-  return stylishDiff(data);
 };
 export default getFormatted;

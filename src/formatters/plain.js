@@ -23,7 +23,7 @@ const plainDiff = (obj) => {
         case 'nested':
           return `${resultdiff(child.children, fullPath)}`;
         default:
-          throw new Error();
+          throw new Error(`${child} change status not identified`);
       }
     })
     .join('\n');
